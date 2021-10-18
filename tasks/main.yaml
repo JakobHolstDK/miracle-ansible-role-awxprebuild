@@ -1,5 +1,3 @@
-- name: Install rhel stuff
-  - include: redhat.yaml
-- name: Install generic stuff
-  - include: prepare_awx_environment.yaml
+- include: redhat.yaml
+- include: prepare_awx_environment.yaml
 

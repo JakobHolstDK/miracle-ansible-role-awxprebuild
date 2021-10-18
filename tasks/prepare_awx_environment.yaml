@@ -130,16 +130,6 @@
     virtualenv_command: /usr/bin/python3 -m venv
   become: True
 
-- name: create checkplatform script
-  template:
-    src: checkplatform.sh.j2
-    dest: /usr/local/bin/checkplatform.sh
-    force: yes
-    mode: '0770'
-    owner: awx
-    group: awx
-  become: True
-
 - name: Enable SELinux in enforcing mode
   ansible.posix.selinux:
     policy: targeted

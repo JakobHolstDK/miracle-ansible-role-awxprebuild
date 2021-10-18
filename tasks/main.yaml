@@ -1,3 +1,5 @@
-- name: Clone source
+- name: Install rhel stuff
+  - include: redhat.yaml
+- name: Install generic stuff
+  - include: prepare_awx_environment.yaml
 
-- name: 

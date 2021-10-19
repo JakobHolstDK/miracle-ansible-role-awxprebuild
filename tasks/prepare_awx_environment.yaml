@@ -1,11 +1,11 @@
-- name: Enable EPEL Repository on CentOS 8
+- name: miracle-ansible-role-awxprebuild | Enable EPEL Repository on CentOS 8
   dnf:
     name: epel-release
     state: latest
   become: True
   when: ansible_facts['os_family'] == 'RedHat'
 
-- name: depend | Ensure dependencies are installed.
+- name: miracle-ansible-role-awxprebuild| Ensure dependencies are installed.
   dnf:
     pkg: [
                 'jq',
@@ -32,7 +32,7 @@
   become: yes
   when: ansible_facts['os_family'] == 'RedHat'
 
-- name: Install add  packages
+- name: miracle-ansible-role-awxprebuild | Install add  packages
   yum:
     name:
       - xmlsec1-devel
@@ -45,14 +45,14 @@
   become: True
   when: ansible_facts['os_family'] == 'RedHat'
 
-- name: Add the group 'awx' with a specific gid and
+- name: miracle-ansible-role-awxprebuild | Add the group 'awx' with a specific gid and
   ansible.builtin.group:
     name: awx
     state: present
     gid: 1666
   become: True
 
-- name: Add the user 'awx' with a specific uid and a primary group of 'awx'
+- name: miracle-ansible-role-awxprebuild | Add the user 'awx' with a specific uid and a primary group of 'awx'
   ansible.builtin.user:
     name: awx
     comment: awx service accout
@@ -60,7 +60,7 @@
     group: awx
   become: true 
 
-- name: Create log dir
+- name: miracle-ansible-role-awxprebuild | Create log dir
   file:
     path: /var/log/tower
     owner: awx
@@ -69,7 +69,7 @@
     mode: "u=rwx,g=rwx,o=r"
   become: yes
 
-- name: Create  /var/lib/awx/rsyslog
+- name: miracle-ansible-role-awxprebuild | Create /var/lib/awx/rsyslog
   file:
     path: /var/lib/awx/rsyslog
     owner: awx
@@ -78,7 +78,7 @@
     mode: "u=rwx,g=rwx,o=r"
   become: yes
 
-- name: Create awx home
+- name: miracle-ansible-role-awxprebuild | Create awx home
   file:
     path: /var/lib/awx
     owner: awx
@@ -87,7 +87,7 @@
     mode: "u=rwx,g=rwx,o=r"
   become: yes
 
-- name: Git checkout awx
+- name: miracle-ansible-role-awxprebuild | Git checkout awx
   ansible.builtin.git:
     repo: 'https://github.com/ansible/awx.git'
     dest: /tmp/awx-{{ awx_image_version }}
@@ -96,7 +96,7 @@
   become: True
   become_user: awx
 
-- name: Recursively change ownership of the directory /etc/tower/conf.d
+- name: miracle-ansible-role-awxprebuild | Recursively change ownership of the directory /etc/tower/conf.d
   ansible.builtin.file:
     path: /etc/tower/conf.d
     state: directory
@@ -106,7 +106,7 @@
   become: True
 
 
-- name: set owener /run/tower
+- name: miracle-ansible-role-awxprebuild | set owener /run/tower
   ansible.builtin.file:
     path: /run/tower
     state: directory
@@ -114,7 +114,7 @@
     group: nginx
   become: True
 
-- name: Recursirely change ownership of the directory /tmp/awx
+- name: miracle-ansible-role-awxprebuild | Recursirely change ownership of the directory /tmp/awx
   ansible.builtin.file:
     path: /tmp/awx-{{ awx_image_version }}
     state: directory
@@ -123,13 +123,13 @@
     group: awx
   become: True
 
-- name: Enable SELinux in enforcing mode
+- name: miracle-ansible-role-awxprebuild | Enable SELinux in enforcing mode
   ansible.posix.selinux:
     policy: targeted
     state: permissive
   become: True
 
-- name: adding nginx to group awx
+- name: miracle-ansible-role-awxprebuild | adding nginx to group awx
   user:
     name: nginx
     groups: awx

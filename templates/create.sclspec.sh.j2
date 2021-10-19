@@ -51,9 +51,10 @@ ssh root@repos.pip2scl.dk createrepo /usr/share/nginx/html/RPMS
 
 
 
-cd /
+cd /tmp/awx-{{ awx_image_version }}
 pip install wheel
 python3 setup.py bdist_rpm --spec-only
+exit
 spec2scl dist/{{ project }}.spec > dist/{{ project }}.scl.spec.pre
 
 awk '/record=INSTALLED_FILES/ { print; print "sed -i \"'s#^#/opt/{{ organisation }}/{{organisation}}-{{ project }}/root#'\" INSTALLED_FILES " ; next }1' dist/{{ project }}.scl.spec.pre  > dist/{{ project }}.scl.spec.pre.1

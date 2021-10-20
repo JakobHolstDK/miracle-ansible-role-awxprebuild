@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 DEPENDECIES="/tmp/dependecies.lst"
 
-curl http://repos.pip2scl.dk/DEPENDENCIES/{{ project }}-{{ scl_version }}.dep > $DEPENDECIES 2>/dev/null
+curl http://repos.pip2scl.dk/DEPENDENCIES/{{ project }}-{{ scl_version }}.dep > $DEPENDECIES
 
 echo "`date`: {{ organisation }} {{ project }} Prepare run."
 mkdir ~/.ssh >/dev/null 2>&1
@@ -58,14 +58,13 @@ spec2scl dist/{{ project }}.spec > dist/{{ project }}.scl.spec.pre
 
 awk '/record=INSTALLED_FILES/ { print; print "sed -i \"'s#^#/opt/{{ organisation }}/{{organisation}}-{{ project }}/root#'\" INSTALLED_FILES " ; next }1' dist/{{ project }}.scl.spec.pre  > dist/{{ project }}.scl.spec.pre.1
 cat dist/{{ project }}.scl.spec.pre.1 | sed 's#root=$RPM_BUILD_ROOT#root=$RPM_BUILD_ROOT/opt/{{ organisation }}/{{ organisation }}-{{ project }}/root #' > dist/{{ project }}.scl.spec.pre.2
-cat dist/{{ project }}.scl.spec.pre.2 | sed "s#Source0:#Source0: http://repos.pip2scl.dk/SOURCES/{{ organisation }}.{{ project }}.{{ version }}.tar.gz\nDELETELINE#"  |grep -v "^DELETELINE" > dist/{{ project }}.scl.spec.pre.3
-echo "`date`: {{ organisation }} {{ project }} Building script for {{ project }} - {{ version }}"
-cat dist/{{ project }}.scl.spec.pre.3 | sed "s#setup -n #setup -n {{ version  }}\nDELETELINE#" |grep -v "^DELETELINE" > /root/rpmbuild/SPECS/{{ organisation }}.{{ project }}.{{ version }}.scl.spec.prereq
+
+cat dist/{{ project }}.scl.spec.pre.3 | sed "s#setup -n #setup -n {{ scl_version }}\nDELETELINE#" |grep -v "^DELETELINE" > /root/rpmbuild/SPECS/{{ organisation }}.{{ project }}.{{ scl_version }}.scl.spec.prereq
 
 MYPWD=`pwd | rev | awk -F'/' '{ print $1 }'|rev `
 cd ..
 tar czf /root/rpmbuild/SOURCES/{{ organisation }}.{{ project }}.{{ scl_version }}.tar.gz $MYPWD/
-scp /root/rpmbuild/SOURCES/{{ organisation }}.{{ project }}.{{ version }}.tar.gz root@repos.pip2scl.dk:/usr/share/nginx/html/SOURCES
+scp /root/rpmbuild/SOURCES/{{ organisation }}.{{ project }}.{{ scl_version }}.tar.gz root@repos.pip2scl.dk:/usr/share/nginx/html/SOURCES
 
 for DEP in `cat $DEPENDECIES`
 do

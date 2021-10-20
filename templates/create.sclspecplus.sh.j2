@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 DEPENDECIES="/tmp/dependecies.lst"
 
-curl http://repos.pip2scl.dk/DEPENDENCIES/{{ project }}-{{ scl_version }}.dep > $DEPENDECIES
+curl http://repos.pip2scl.dk/DEPENDENCIES/{{ project }}-{{ scl_version }}.dep > $DEPENDECIES 2>/dev/null
 
 echo "`date`: {{ organisation }} {{ project }} Prepare run."
 mkdir ~/.ssh >/dev/null 2>&1
@@ -64,7 +64,7 @@ cat dist/{{ project }}.scl.spec.pre.3 | sed "s#setup -n #setup -n {{ version  }}
 
 MYPWD=`pwd | rev | awk -F'/' '{ print $1 }'|rev `
 cd ..
-tar czvf /root/rpmbuild/SOURCES/{{ organisation }}.{{ project }}.{{ scl_version }}.tar.gz $MYPWD/
+tar czf /root/rpmbuild/SOURCES/{{ organisation }}.{{ project }}.{{ scl_version }}.tar.gz $MYPWD/
 scp /root/rpmbuild/SOURCES/{{ organisation }}.{{ project }}.{{ version }}.tar.gz root@repos.pip2scl.dk:/usr/share/nginx/html/SOURCES
 
 for DEP in `cat $DEPENDECIES`

@@ -135,3 +135,10 @@
     groups: awx
     append: yes
 
+- name:  ansible-role-awxprebuild | create a tailored script with dependencies
+  ansible.builtin.template:
+    src: create.sclspecplus.sh.j2
+    dest: /usr/local/bin/create.sclspecplus.sh
+    mode: 755
+    force: yes
+  become: True

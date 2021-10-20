@@ -51,7 +51,13 @@ ssh root@repos.pip2scl.dk createrepo /usr/share/nginx/html/RPMS
 
 
 
-cd /tmp/project-{{ scl_version }}
+cd /tmp/{{project}}-{{ scl_version }}
+if [[ $? != 0 ]];
+then  
+  echo "Target dir not found"
+  exit 200
+fi
+
 pip install wheel
 python3 setup.py bdist_rpm --spec-only
 spec2scl dist/{{ project }}.spec > dist/{{ project }}.scl.spec.pre

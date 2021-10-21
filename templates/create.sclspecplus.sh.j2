@@ -78,4 +78,7 @@ done
 mv /root/rpmbuild/SPECS/{{ organisation }}.{{ project }}.{{ scl_version }}.scl.spec.prereq /root/rpmbuild/SPECS/{{ organisation }}.{{ project }}.{{ scl_version }}.scl.spec
 scp /root/rpmbuild/SPECS/{{ organisation }}.{{ project }}.{{ scl_version }}.scl.spec root@repos.pip2scl.dk:/usr/share/nginx/html/SPECS >/dev/null 2>&1
 
+
+# We need a miracle version of python
+
 echo "`date`: {{ organisation }} {{ project }} The end"

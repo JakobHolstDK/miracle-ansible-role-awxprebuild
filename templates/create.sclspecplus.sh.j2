@@ -90,7 +90,17 @@ cd python36-download
 yumdownloader --source  python36
 FILE=`ls -1 python36*rpm`
 cd ../python36
-rpm2cpio ../python36-download/${FILE}.rpm | cpio -idmv
+rpm2cpio ../python36-download/${FILE} | cpio -idmv
+
+mkdir  python
+mkdir  python-download
+cd python-download
+yumdownloader --source  python
+FILE=`ls -1`
+cd ../python
+rpm2cpio ../python-download/${FILE}| cpio -idmv
+
+
 
 
 

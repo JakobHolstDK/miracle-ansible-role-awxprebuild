@@ -63,8 +63,8 @@ cat dist/{{ project }}.scl.spec.pre.3 | sed "s#setup -n #setup -n {{ project }}-
 
 MYPWD=`pwd | rev | awk -F'/' '{ print $1 }'|rev `
 cd ..
-tar czf /root/rpmbuild/SOURCES/{{ organisation }}.{{ project }}.{{ scl_version }}.tar.gz $MYPWD/
-scp /root/rpmbuild/SOURCES/{{ organisation }}.{{ project }}.{{ scl_version }}.tar.gz root@repos.pip2scl.dk:/usr/share/nginx/html/SOURCES
+tar czf /root/rpmbuild/SOURCES/{{ project }}-{{ scl_version }}.tar.gz $MYPWD/
+scp /root/rpmbuild/SOURCES/{{ project }}-{{ scl_version }}.tar.gz root@repos.pip2scl.dk:/usr/share/nginx/html/SOURCES
 
 for DEP in `cat $DEPENDECIES`
 do

@@ -80,5 +80,17 @@ scp /root/rpmbuild/SPECS/{{ organisation }}.{{ project }}.{{ scl_version }}.scl.
 
 
 # We need a miracle version of python
+mkdir /root/rpmbuild/tmp >/dev/null 2>&1
 
-echo "`date`: {{ organisation }} {{ project }} The end"
+cd /root/rpmbuild/tmp
+/usr/bin/rm -r *  >/dev/null 2>&1
+mkdir  python36-download
+cd /root/rpmbuild/tmp
+dnf download python36
+FILE=`ls -1 python36*rpm`
+mkdir ../python36
+cd ../python36
+rpm2cpio ../python36-download/$FILE}.rpm | cpio -idmv
+
+
+

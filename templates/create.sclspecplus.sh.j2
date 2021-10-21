@@ -87,7 +87,7 @@ cd /root/rpmbuild/tmp
 mkdir  python36
 mkdir  python36-download
 cd python36-download
-yum-downloader --source  python36
+yumdownloader --source  python36
 FILE=`ls -1 python36*rpm`
 cd ../python36
 rpm2cpio ../python36-download/${FILE}.rpm | cpio -idmv

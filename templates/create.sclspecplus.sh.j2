@@ -6,7 +6,7 @@ curl http://repos.pip2scl.dk/DEPENDENCIES/{{ project }}-{{ scl_version }}.dep > 
 echo "`date`: {{ organisation }} {{ project }} Prepare run."
 mkdir ~/.ssh >/dev/null 2>&1
 chmod 700 ~/.ssh
-cp /etc/scldistro ~/.ssh/id_rsa
+#cp /etc/scldistro ~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa
 touch /root/rpmbuild/SOURCES/README
 touch /root/rpmbuild/SOURCES/LICENSE
@@ -58,7 +58,7 @@ spec2scl dist/{{ project }}.spec > dist/{{ project }}.scl.spec.pre
 
 awk '/record=INSTALLED_FILES/ { print; print "sed -i \"'s#^#/opt/{{ organisation }}/{{organisation}}-{{ project }}/root#'\" INSTALLED_FILES " ; next }1' dist/{{ project }}.scl.spec.pre  > dist/{{ project }}.scl.spec.pre.1
 cat dist/{{ project }}.scl.spec.pre.1 | sed 's#root=$RPM_BUILD_ROOT#root=$RPM_BUILD_ROOT/opt/{{ organisation }}/{{ organisation }}-{{ project }}/root #' > dist/{{ project }}.scl.spec.pre.2
-
+cat $DIR.scl.pre.spec.2 | sed "s#Source0:#Source0: http://repos.pip2scl.dk/SOURCES/${MYPKG}.tar.gz\nDELETELINE#"  |grep -v "^DELETELINE" > $DIR.scl.pre.spec.3
 cat dist/{{ project }}.scl.spec.pre.3 | sed "s#setup -n #setup -n {{ project }}-{{ scl_version }}\nDELETELINE#" |grep -v "^DELETELINE" > /root/rpmbuild/SPECS/{{ organisation }}.{{ project }}.{{ scl_version }}.scl.spec.prereq
 
 MYPWD=`pwd | rev | awk -F'/' '{ print $1 }'|rev `

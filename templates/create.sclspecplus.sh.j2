@@ -84,21 +84,17 @@ mkdir /root/rpmbuild/tmp >/dev/null 2>&1
 
 cd /root/rpmbuild/tmp
 /usr/bin/rm -r *  >/dev/null 2>&1
-mkdir  python36
-mkdir  python36-download
-cd python36-download
-yumdownloader --source  python36
-FILE=`ls -1 python36*rpm`
-cd ../python36
-rpm2cpio ../python36-download/${FILE} | cpio -idmv
+for package in python36 python-pip python-setuptools python-virtualenv
+do
+  mkdir  python36
+  mkdir  python36-download
+  cd ${package}-download
+  yumdownloader --source  ${package}
+  FILE=`ls -1`
+  cd ../${package}
+  rpm2cpio ../${package}-download/${FILE} | cpio -idmv
+done
 
-mkdir  python
-mkdir  python-download
-cd python-download
-yumdownloader --source  python
-FILE=`ls -1`
-cd ../python
-rpm2cpio ../python-download/${FILE}| cpio -idmv
 
 
 

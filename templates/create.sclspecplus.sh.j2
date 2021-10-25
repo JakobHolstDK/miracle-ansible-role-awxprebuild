@@ -93,6 +93,10 @@ do
   FILE=`ls -1`
   cd ../${package}
   rpm2cpio ../${package}-download/${FILE} | cpio -idmv
+  spec2scl ${package}.spec > ${package}.scl.spec
+  sed -i "s/post -n ${package}/post -n %{?scl_prefix}${package}/"  ${package}.scl.spec 
+  sed -i "s/postun -n ${package}/postun -n %{?scl_prefix}${package}/"  ${package}.scl.spec 
+  rpmbuild -ba  ${package}.scl.spec --define "scl miracle-awx"
   cd ..
 done
 

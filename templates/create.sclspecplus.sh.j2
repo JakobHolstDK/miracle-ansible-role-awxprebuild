@@ -84,7 +84,8 @@ mkdir /root/rpmbuild/tmp >/dev/null 2>&1
 
 cd /root/rpmbuild/tmp
 /usr/bin/rm -r *  >/dev/null 2>&1
-for package in python36 python-pip python-setuptools 
+	bash-completion ca-certificates python3-devel python3-pip python3-setuptools python3-sphinx python3-wheel
+for package in python36 	bash-completion ca-certificates python3-devel python3-pip python3-setuptools python3-sphinx python3-wheel  
 do
   mkdir  ${package}
   mkdir  ${package}-download

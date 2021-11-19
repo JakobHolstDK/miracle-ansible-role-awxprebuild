@@ -39,7 +39,6 @@
       - libtool-ltdl-devel
       - mlocate
       - libpq-devel
-
     state: latest
     enablerepo: "powertools"
   become: True
@@ -135,10 +134,28 @@
     groups: awx
     append: yes
 
-- name:  ansible-role-awxprebuild | create a tailored script with dependencies
-  ansible.builtin.template:
-    src: create.sclspecplus.sh.j2
-    dest: /usr/local/bin/create.sclspecplus.sh
-    mode: 755
-    force: yes
-  become: True
+
+- name: Add multiple repositories into the same file (1/2)
+  yum_repository:
+    name: MOSP
+    description: Mirale opensource projects
+    file: mosp_repos
+    baseurl: http://repos.pip2scl.dk/RPMS
+    gpgcheck: no
+
+- name: miracle-ansible-role-awxprebuild | Install add  packages
+  yum:
+    name:
+      - miracle-awx-runtime
+    state: lastest
+    enablerepo: "MOSP"
+
+
+- name: install the package, force upgrade
+  pip: 
+    name: [ pip, wheel, spec2scl ] 
+    state: latest
+  
+
+
+

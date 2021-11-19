@@ -147,7 +147,7 @@
   yum:
     name:
       - miracle-awx-runtime
-    state: lastest
+    state: latest
     enablerepo: "MOSP"
 
 

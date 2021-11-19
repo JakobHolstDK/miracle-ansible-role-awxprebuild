@@ -133,6 +133,14 @@
     name: nginx
     groups: awx
     append: yes
+    
+- name:  sclbuilder | copy mergerfile
+  ansible.builtin.template:
+    src: mergefiles.sh.j2
+    dest: /usr/local/bin/mergefiles.sh
+    mode: 755
+    force: yes
+  become: True
 
 
 - name: Add multiple repositories into the same file (1/2)

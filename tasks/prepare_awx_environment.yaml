@@ -160,6 +160,9 @@
 - name: download requirement file
   get_url: url={{ requirementfile }} dest={{ project_dir }}/{{ project }}.requirement.txt
 
+- name: download requirement file
+  get_url: url={{ requirementfile }} dest={{ project_dir }}/{{ project }}.requirement.txt
+  
 - name: install the package, force upgrade
   pip: 
     name: [ pip, wheel, spec2scl ] 

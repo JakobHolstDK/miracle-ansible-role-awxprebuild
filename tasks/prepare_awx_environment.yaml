@@ -161,7 +161,7 @@
   get_url: url={{ requirementfile }} dest={{ project_dir }}/{{ project }}.requirement.txt
 
 - name: download requirement file
-  get_url: url={{ requirementfile }} dest={{ project_dir }}/{{ project }}.requirement.txt
+  get_url: url={{ dependencyfile }} dest={{ project_dir }}/{{ project }}.dependencyfile.txt
   
 - name: install the package, force upgrade
   pip: 

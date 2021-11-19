@@ -152,7 +152,7 @@
 
 - name: miracle-ansible-role-awxprebuild | req dir
   ansible.builtin.file:
-    path: {{ project_dir }}/{{ project }}
+    path: "{{ project_dir }}/{{ project }}"
     state: directory
   become: True
 
